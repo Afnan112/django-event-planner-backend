@@ -39,7 +39,7 @@ class EventDetailView(APIView):
         # Delete the event
         # Send an appropriate response
         event = self.get_object(pk)
-        event.delete
+        event.delete()
         return Response(status=204)
     
     def patch(self, request, pk):
