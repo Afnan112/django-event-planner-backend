@@ -35,9 +35,20 @@ class EventDetailView(APIView):
         return Response(serializer.data, status=200)
     
     def delete(self, request, pk):
-        # Get the post
-        # Delete the post
+        # Get the event
+        # Delete the event
         # Send an appropriate response
-        post = self.get_object(pk)
-        post.delete()
+        event = self.get_object(pk)
+        event.delete
         return Response(status=204)
+    
+    def patch(self, request, pk):
+        # get the event to update
+        # If the update is valid save it
+        # return an approprate response
+        event = self.get_object(pk)
+        serializer = EventSerializer(event, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
