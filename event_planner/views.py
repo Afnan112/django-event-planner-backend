@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Event
-from .serializers import EventSerializer
+from .serializers import EventSerializer, AttendanceSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 
 # Create your views here.
 class EventListCreateView(APIView):
@@ -52,3 +54,19 @@ class EventDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+    
+
+class CreateAttendanceAPI(APIView):
+    def post(self, request, event_id):
+
+        event = get_object_or_404(Event, pk=event_id)
+        print(event)
+
+        data = request.data.copy()
+        data['event'] = event.id
+
+        serializer = AttendanceSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
