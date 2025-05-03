@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Event
-from .serializers import EventSerializer, AttendanceSerializer
+from .models import Event, Note
+from .serializers import EventSerializer, AttendanceSerializer, NoteSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.exceptions import NotFound
 
 # Create your views here.
 class EventListCreateView(APIView):
@@ -72,3 +73,24 @@ class CreateAttendanceAPI(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+
+
+class NoteCreateView(APIView):
+    def post(self, request, event_id):
+        event = self.get_object(Event, pk=event_id)
+
+        serializer = NoteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(event_id=event)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+    
+class NoteDetailView(APIView):
+    def get(self, request, event_id):
+        notes = Note.objects.filter(event_id = event_id)
+        if not notes:
+            raise NotFound("No notes found for this event")
+        
+        serializer = NoteSerializer(notes, many=True)
+        return Response(serializer.data, status=200)
