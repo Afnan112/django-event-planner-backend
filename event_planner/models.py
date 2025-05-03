@@ -23,3 +23,12 @@ class Attendance (models.Model):
 
     def __str__(self):
         return f'{self.user_id} - {self.event_id.title}'
+    
+
+class Note (models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
+    content = models.TextField()
+
+    def __str__(self):
+        return f'{self.user_id} - {self.event_id.title} - {self.content}'

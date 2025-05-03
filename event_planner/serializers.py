@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Event, Attendance
+from .models import Event, Attendance, Note
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,4 +10,12 @@ class EventSerializer(serializers.ModelSerializer):
 class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
-        fields = '__all__'   
+        # fields = '__all__'  
+        fields = ['user_id', 'event_id'] 
+
+
+class NoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        # fields = '__all__'  
+        fields = ['user_id', 'event_id', 'content'] 
