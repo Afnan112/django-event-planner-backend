@@ -76,12 +76,15 @@ class CreateAttendanceAPI(APIView):
 
 
 class NoteCreateView(APIView):
+    def get_object(self, pk):
+        return get_object_or_404(Event, pk=pk)
+    
     def post(self, request, event_id):
-        event = self.get_object(Event, pk=event_id)
+        event = self.get_object(event_id)
 
         serializer = NoteSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(event_id=event)
+            serializer.save(event=event)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
