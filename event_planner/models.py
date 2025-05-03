@@ -26,9 +26,9 @@ class Attendance (models.Model):
     
 
 class Note (models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
     content = models.TextField()
 
     def __str__(self):
-        return f'{self.user_id} - {self.event_id.title} - {self.content}'
+        return f'{self.user} - {self.event.title} - {self.content}'

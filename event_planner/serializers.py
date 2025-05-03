@@ -17,5 +17,4 @@ class AttendanceSerializer(serializers.ModelSerializer):
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        # fields = '__all__'  
-        fields = ['user_id', 'event_id', 'content'] 
+        fields = ['id', 'user', 'event', 'content'] 
