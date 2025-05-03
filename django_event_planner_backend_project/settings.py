@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'corsheaders',
+    'rest_framework',
     'event_planner',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third-party and local apps
-    'rest_framework', # Need to add this to Installed Apps
+    # Need to add this to Installed Apps
 ]
 
 MIDDLEWARE = [

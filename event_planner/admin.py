@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Event, Attendance,Note
+from .models import Event, Attendancing
 
 # Register your models here.
 admin.site.register(Event)
-admin.site.register(Attendance)
-admin.site.register(Note)
+admin.site.register(Attendancing)
+# admin.site.register(Noting)
 
