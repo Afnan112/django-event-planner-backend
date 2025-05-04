@@ -4,7 +4,6 @@ from .models import Event, Attendancing
 from .serializers import EventSerializer, AttendancingSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from django.shortcuts import get_object_or_404
 from rest_framework import status
 # from rest_framework.exceptions import NotFound
 
@@ -82,6 +81,31 @@ class CreateAttendanceAPI(APIView):
         events = Attendancing.objects.filter(user_id=request.user)
         serializer = AttendancingSerializer(events, many=True)
         return Response(serializer.data, status=200)
+
+
+class CancelAttendanceAPI(APIView):
+        # Ref
+        # https://www.helmut.dev/understanding-the-difference-between-get-and-first-in-django#:~:text=get()%20does%20not%20have,only%20ever%20return%20one%20record.
+        def delete (self, request, event_id):
+            attend = Attendancing.objects.filter(event_id=event_id, user_id=request.user.id).first()
+
+            if attend:
+                attend.delete()
+                return Response(status=204)
+            else:
+                return Response({"error": "Attendance not found"}, status=404)
+            
+
+
+
+
+
+
+
+
+
+
+
 
 # class NoteCreateView(APIView):
 #     def get_object(self, pk):
