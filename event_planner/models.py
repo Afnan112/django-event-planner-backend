@@ -16,7 +16,7 @@ class Event (models.Model):
     
 
 class Attendancing (models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, default=1)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Attendance for: {self.event.title}'
