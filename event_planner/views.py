@@ -30,9 +30,6 @@ class EventDetailView(APIView):
         return get_object_or_404(Event, pk=pk)
 
     def get(self, request, pk):
-        # Get the post object
-        # Serialize it with the PostSerializer
-        # Return it
         event = self.get_object(pk)
         serializer = EventSerializer(event)
         return Response(serializer.data, status=200)
@@ -58,6 +55,7 @@ class EventDetailView(APIView):
     
 
 class CreateAttendanceAPI(APIView):
+    # Add a user's attendance to a specific event
     def post(self, request, event_id):
 
         # Here check for event
@@ -80,8 +78,10 @@ class CreateAttendanceAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
-
+    def get (self, request):
+        events = Attendancing.objects.filter(user_id=request.user)
+        serializer = AttendancingSerializer(events, many=True)
+        return Response(serializer.data, status=200)
 
 # class NoteCreateView(APIView):
 #     def get_object(self, pk):
