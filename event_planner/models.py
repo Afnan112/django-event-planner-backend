@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Event (models.Model):
@@ -17,15 +18,16 @@ class Event (models.Model):
 
 class Attendancing (models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Attendance for: {self.event.title}'
+    
 
+class Notes(models.Model):
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='notes')
 
-# class Noting(models.Model):
-#     note_content = models.TextField()
-
-#     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-
-#     def __str__(self):
-#         return f"Note for event: {self.event.title}"
+    def str(self):
+        return f'Note for: {self.event.title}'

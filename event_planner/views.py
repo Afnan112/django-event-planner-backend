@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Event
+from .models import Event, Attendancing
 from .serializers import EventSerializer, AttendancingSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -72,6 +72,20 @@ class CreateAttendanceAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+    def add_attendance_to_event(request, event_id, atten_id):
+        try:
+            event = Event.objects.get(pk=event_id)
+            attendance = Attendancing.objects.get(pk=atten_id)
+
+            event.event.add (attendance)
+            return Response({'message': 'Event to was Added!'}, status=200)
+        except Event.DoesNotExist:
+            return Response({'error': 'The Event Does Not Exist'}, status=404)
+        except Attendancing.DoesNotExist:
+            return Response({'error': 'The Attendance Does Not Exist'}, status=404)
+        except:
+            return Response({'error': 'Something went wrong'}, status=500)
 
 
 
