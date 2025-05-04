@@ -78,7 +78,7 @@ class CreateAttendanceAPI(APIView):
             event = Event.objects.get(pk=event_id)
             attendance = Attendancing.objects.get(pk=atten_id)
 
-            event.event.add (attendance)
+            event.user.add (attendance)
             return Response({'message': 'Event to was Added!'}, status=200)
         except Event.DoesNotExist:
             return Response({'error': 'The Event Does Not Exist'}, status=404)

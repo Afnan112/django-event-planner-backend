@@ -27,7 +27,8 @@ class Attendancing (models.Model):
 class Notes(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='notes')
 
-    def str(self):
+    def __str__(self):
         return f'Note for: {self.event.title}'
