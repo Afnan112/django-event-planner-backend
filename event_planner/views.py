@@ -60,9 +60,17 @@ class EventDetailView(APIView):
 class CreateAttendanceAPI(APIView):
     def post(self, request, event_id):
 
+        # Here check for event
         event = get_object_or_404(Event, pk=event_id)
-        print(event)
+        #get user id from url
+        user_id = request.data.get('user')
 
+        if not user_id:
+            return Response({'error': 'User ID is required'}, status=400)
+
+        if Attendancing.objects.filter(event=event, user_id=user_id).exists(): 
+                return Response({'message': 'User is already registered for this event'}, status=400)
+            
         data = request.data.copy()
         data['event'] = event.id
 
@@ -72,20 +80,6 @@ class CreateAttendanceAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
-    def add_attendance_to_event(request, event_id, atten_id):
-        try:
-            event = Event.objects.get(pk=event_id)
-            attendance = Attendancing.objects.get(pk=atten_id)
-
-            event.user.add (attendance)
-            return Response({'message': 'Event to was Added!'}, status=200)
-        except Event.DoesNotExist:
-            return Response({'error': 'The Event Does Not Exist'}, status=404)
-        except Attendancing.DoesNotExist:
-            return Response({'error': 'The Attendance Does Not Exist'}, status=404)
-        except:
-            return Response({'error': 'Something went wrong'}, status=500)
 
 
 
