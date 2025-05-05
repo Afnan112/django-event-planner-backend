@@ -1,14 +1,21 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Event, Attendancing
+from .models import Event, Attendancing, Notes
 from .serializers import EventSerializer, AttendancingSerializer, NotesSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+
+from django.contrib.auth.password_validation import validate_password
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.core.exceptions import ValidationError
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.models import User
 # from rest_framework.exceptions import NotFound
 
 # Create your views here.
 class EventListCreateView(APIView):
+    permission_classes = [IsAuthenticated]
     # This function to dispaly all events exist DB
     def get(self, request):
         events = Event.objects.all()
@@ -25,14 +32,19 @@ class EventListCreateView(APIView):
 
 
 class EventDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    # Looking for the event in the DB using PK
     def get_object(self, pk):
         return get_object_or_404(Event, pk=pk)
 
+    # Get event's details using PK
     def get(self, request, pk):
         event = self.get_object(pk)
         serializer = EventSerializer(event)
         return Response(serializer.data, status=200)
     
+    # Delet event using PK
     def delete(self, request, pk):
         # Get the event
         # Delete the event
@@ -60,16 +72,14 @@ class CreateAttendanceAPI(APIView):
         # Here check for event
         event = get_object_or_404(Event, pk=event_id)
         #get user id from url
-        user_id = request.data.get('user')
+        user = request.user
 
-        if not user_id:
-            return Response({'error': 'User ID is required'}, status=400)
-
-        if Attendancing.objects.filter(event=event, user_id=user_id).exists(): 
+        if Attendancing.objects.filter(event=event, user_id=user.id).exists(): 
                 return Response({'message': 'User is already registered for this event'}, status=400)
             
         data = request.data.copy()
         data['event'] = event.id
+        data['user'] = user.id 
 
         serializer = AttendancingSerializer(data=data)
         if serializer.is_valid():
@@ -77,6 +87,9 @@ class CreateAttendanceAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+
+    # Return all events attended by the current user
     def get (self, request):
         events = Attendancing.objects.filter(user_id=request.user)
         serializer = AttendancingSerializer(events, many=True)
@@ -118,3 +131,36 @@ class NoteCreateView(APIView):
         
 #         serializer = NoteSerializer(notes, many=True)
 #         return Response(serializer.data, status=200)
+
+
+class SignUpView(APIView):
+    permission_classes = [AllowAny]
+    # When we recieve a POST request with username, email, and password. Create a new user.
+    def post(self, request):
+        print('data', request.data)
+        # Using .get will not error if there's no username
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        try:
+            validate_password(password)
+        except ValidationError as err:
+            return Response({'error': err.messages}, status=400)
+
+        # Actually create the user
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+
+        # create an access and refresh token for the user and send this in a response
+        tokens = RefreshToken.for_user(user)
+        return Response(
+            {
+                'refresh': str(tokens),
+                'access': str(tokens.access_token)
+            },
+            status=201
+        )
