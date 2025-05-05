@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Event, Attendancing
-from .serializers import EventSerializer, AttendancingSerializer
+from .serializers import EventSerializer, AttendancingSerializer, NotesSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -96,34 +96,23 @@ class CancelAttendanceAPI(APIView):
                 return Response({"error": "Attendance not found"}, status=404)
             
 
-
-
-
-
-
-
-
-
-
-
-
-# class NoteCreateView(APIView):
-#     def get_object(self, pk):
-#         return get_object_or_404(Event, pk=pk)
+class NoteCreateView(APIView):
+    def get_object(self, pk):
+        return get_object_or_404(Event, pk=pk)
     
-#     def post(self, request, event_id):
-#         event = self.get_object(event_id)
+    def post(self, request, event_id):
+        event = self.get_object(event_id)
 
-#         serializer = NoteSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save(event=event)
-#             return Response(serializer.data, status=201)
-#         return Response(serializer.errors, status=400)
+        serializer = NotesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(event=event)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
     
 # class NoteDetailView(APIView):
 #     def get(self, request, event_id):
-#         notes = Noting.objects.filter(event_id = event_id)
+#         notes = Notes.objects.filter(event_id = event_id)
 #         if not notes:
 #             raise NotFound("No notes found for this event")
         
