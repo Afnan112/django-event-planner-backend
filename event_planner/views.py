@@ -110,7 +110,7 @@ class CancelAttendanceAPI(APIView):
             else:
                 return Response({"error": "Attendance not found"}, status=404)
             
-
+#  Create a new note associated with a specific event
 class NoteCreateView(APIView):
     def get_object(self, pk):
         return get_object_or_404(Event, pk=pk)
@@ -118,11 +118,15 @@ class NoteCreateView(APIView):
     def post(self, request, event_id):
         event = self.get_object(event_id)
 
-        serializer = NotesSerializer(data=request.data)
+        data = request.data.copy()
+        data['event'] = event.id
+        serializer = NotesSerializer(data=data)
         if serializer.is_valid():
             serializer.save(event=event)
             return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+        else:
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     
 # class NoteDetailView(APIView):
