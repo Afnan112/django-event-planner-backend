@@ -105,7 +105,7 @@ class CancelAttendanceAPI(APIView):
             attendances = Attendancing.objects.filter(event_id=event_id, user_id=request.user.id)
 
             if attendances.exists():
-                attendances.exclude(id=attendances.first().id).delete()  
+                attendances.delete()  
                 return Response(status=204)
             else:
                 return Response({"error": "Attendance not found"}, status=404)
