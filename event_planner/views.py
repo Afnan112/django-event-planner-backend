@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.core.exceptions import ValidationError
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
-# from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound
 
 # Create your views here.
 class EventListCreateView(APIView):
@@ -128,15 +128,16 @@ class NoteCreateView(APIView):
             print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#  Get all notes related to the event 
     
-# class NoteDetailView(APIView):
-#     def get(self, request, event_id):
-#         notes = Notes.objects.filter(event_id = event_id)
-#         if not notes:
-#             raise NotFound("No notes found for this event")
+class NoteDetailView(APIView):
+    def get(self, request, event_id):
+        notes = Notes.objects.filter(event_id = event_id)
+        if not notes:
+            raise NotFound("No notes found for this event")
         
-#         serializer = NoteSerializer(notes, many=True)
-#         return Response(serializer.data, status=200)
+        serializer = NotesSerializer(notes, many=True)
+        return Response(serializer.data, status=200)
 
 
 class SignUpView(APIView):
