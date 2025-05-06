@@ -64,7 +64,8 @@ class EventDetailView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
     
-
+# Ref => cat-collector exists(), filter()
+# https://medium.com/@altafkhan_24475/post-method-of-apiview-in-django-rest-framework-2aa361c4d6e0
 class CreateAttendanceAPI(APIView):
     # Add a user's attendance to a specific event
     def post(self, request, event_id):
@@ -98,12 +99,13 @@ class CreateAttendanceAPI(APIView):
 
 class CancelAttendanceAPI(APIView):
         # Ref
-        # https://www.helmut.dev/understanding-the-difference-between-get-and-first-in-django#:~:text=get()%20does%20not%20have,only%20ever%20return%20one%20record.
+        # https://stackoverflow.com/questions/40758860/how-to-return-all-records-but-exclude-the-last-item
+        # https://docs.djangoproject.com/en/5.2/ref/models/querysets/#exclude
         def delete (self, request, event_id):
-            attend = Attendancing.objects.filter(event_id=event_id, user_id=request.user.id).first()
+            attendances = Attendancing.objects.filter(event_id=event_id, user_id=request.user.id)
 
-            if attend:
-                attend.delete()
+            if attendances.exists():
+                attendances.exclude(id=attendances.first().id).delete()  
                 return Response(status=204)
             else:
                 return Response({"error": "Attendance not found"}, status=404)
