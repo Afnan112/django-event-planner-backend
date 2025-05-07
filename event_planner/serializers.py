@@ -9,6 +9,8 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class AttendancingSerializer(serializers.ModelSerializer):
+    event_title = serializers.CharField(source='event.title', read_only=True)
+
     class Meta:
         model = Attendancing
         fields = '__all__'  
