@@ -5,13 +5,15 @@ My project is an event planning system that allows users to create events, regis
 
 #### Tech stack
 - Django
-- Database: pgAdmin 4
+- python
+- PostgreSQl
 - Authentication: JWT
 - rest_framewoek
 - djangorestframework
 - djangorestframework-simplejwt
 - django-cors-headers 
 - Postman
+- GitHub
 
 #### Front End Repo Link
 https://git.generalassemb.ly/afnan07/react-event-planner-frontend
