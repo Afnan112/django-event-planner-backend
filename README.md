@@ -38,7 +38,7 @@ https://git.generalassemb.ly/afnan07/react-event-planner-frontend
 
 
 #### Installation Instructions
-1. git clone my_repo_link
+1. git clone [my_repo_link](https://git.generalassemb.ly/afnan07/django-event-planner-backend.git)
 2. Activate a virtual environment
    pipenv shell
 3. Install packages
