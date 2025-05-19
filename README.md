@@ -11,17 +11,18 @@ It allows users to:
 The goal is to simplify organizing and tracking events efficiently.
 
 ---
-#### Tech stack
+## ⚙️ Tech Stack
+
+- Python
 - Django
-- python
-- PostgreSQl
-- Authentication: JWT
-- rest_framewoek
-- djangorestframework
-- djangorestframework-simplejwt
-- django-cors-headers 
-- Postman
+- Django REST Framework
+- JWT Authentication (`djangorestframework-simplejwt`)
+- PostgreSQL
+- `django-cors-headers`
+- Postman (for testing APIs)
 - GitHub
+
+---
 
 #### Front End Repo Link
 https://git.generalassemb.ly/afnan07/react-event-planner-frontend
