@@ -25,7 +25,7 @@ The goal is to simplify organizing and tracking events efficiently.
 ---
 
 ## 🖥️ Frontend Repository
-🔗 [react-event-planner-frontend](https://git.generalassemb.ly/afnan07/react-event-planner-frontend)
+🔗 [Event Planner - Frontend](https://github.com/Afnan112/react-event-planner-frontend.git)
 
 ## 🧠 ERD Diagram
 ![ERD](./assets/ERD%20event%20planner.png)
