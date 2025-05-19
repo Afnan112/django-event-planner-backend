@@ -48,44 +48,36 @@ The goal is to simplify organizing and tracking events efficiently.
 | GET    | `/api/attendance/<event_id>/attendees/`          | Get attendees of an event              |
 | POST   | `/api/events/<int:event_id>/notes/`              | Create a note for the event            |
 
-
-
-#### Installation Instructions
-1. git clone [my_repo_link](https://git.generalassemb.ly/afnan07/django-event-planner-backend.git)
-2. Activate a virtual environment
-   pipenv shell
-3. Install packages
-    pipenv install djangorestframework-simplejwt 
-    pipenv install djangorestframework
-     pipenv install django-cors-headers
-4. Apply migrations
-   python manage.py migrate
-5. Run runserver
-
 ## 🧪 Installation Instructions
 
 1. Clone the repository:  
    ```bash
    git clone https://github.com/Afnan112/django-event-planner-backend.git
    cd django-event-planner-backend
-   
-   2. Activate virtual environment:  
+   ```
+2. Activate virtual environment:  
+   ```bash
    pipenv shell
- 
-   3. Install required packages:
+   ```
+3. Install required packages:
+   ```bash
    pipenv install djangorestframework-simplejwt
    pipenv install djangorestframework
    pipenv install django-cors-headers
-
-   4. Apply migrations:
-   python manage.py migrate
-
-   5. Run the server:
-   python manage.py runserver
    ```
+4. Apply migrations:
+   ```bash
+   python manage.py migrate
+   ```
+5. Run the server:
+```bash
+python manage.py runserver
+ ```  
 
-#### IceBox Features
-- Adding real-time notifications upon attendance registration.
-- Add Calender
+## ❄️ IceBox Features
 
+These are planned features that are not yet implemented but are on the roadmap:
+
+- Real-time notifications upon attendance registration.
+- Calendar integration for event scheduling and reminders.
 
