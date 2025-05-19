@@ -68,13 +68,15 @@ The goal is to simplify organizing and tracking events efficiently.
    ```bash
    git clone https://github.com/Afnan112/django-event-planner-backend.git
    cd django-event-planner-backend
-2. Activate virtual environment:  
+   ```bash
+   2. Activate virtual environment:  
    pipenv shell
-3. Install required packages:
+   ```bash
+   3. Install required packages:
    pipenv install djangorestframework-simplejwt
    pipenv install djangorestframework
    pipenv install django-cors-headers
-
+   
 
 #### IceBox Features
 - Adding real-time notifications upon attendance registration.
