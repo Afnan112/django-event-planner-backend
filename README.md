@@ -70,9 +70,9 @@ The goal is to simplify organizing and tracking events efficiently.
    python manage.py migrate
    ```
 5. Run the server:
-```bash
+   ```bash
    python manage.py runserver
- ```  
+   ```  
 
 ## ❄️ IceBox Features
 
