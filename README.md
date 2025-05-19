@@ -68,7 +68,7 @@ The goal is to simplify organizing and tracking events efficiently.
    ```bash
    git clone https://github.com/Afnan112/django-event-planner-backend.git
    cd django-event-planner-backend
-   ```bash
+   
    2. Activate virtual environment:  
    pipenv shell
    ```bash
