@@ -24,10 +24,10 @@ The goal is to simplify organizing and tracking events efficiently.
 
 ---
 
-#### Front End Repo Link
-https://git.generalassemb.ly/afnan07/react-event-planner-frontend
+## 🖥️ Frontend Repository
+🔗 [react-event-planner-frontend](https://git.generalassemb.ly/afnan07/react-event-planner-frontend)
 
-#### ERD diagram
+## 🧠 ERD Diagram
 ![ERD](./assets/ERD%20event%20planner.png)
 
 #### Routing Table
