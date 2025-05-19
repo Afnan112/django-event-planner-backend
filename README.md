@@ -71,7 +71,7 @@ The goal is to simplify organizing and tracking events efficiently.
    ```
 5. Run the server:
 ```bash
-python manage.py runserver
+   python manage.py runserver
  ```  
 
 ## ❄️ IceBox Features
