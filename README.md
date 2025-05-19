@@ -1,8 +1,16 @@
-## Backend End Repository
+# 🎯 Django Event Planner Backend
 
-#### Project & Repository descriptions
-My project is an event planning system that allows users to create events, register attendance, and add important notes for attendees. It aims to simplify organizing and tracking events in an easy and efficient way.
+## 📝 Project Description
 
+This is a backend system for an Event Planner application.  
+It allows users to:
+- Create events
+- Register their attendance
+- Add important notes for attendees
+
+The goal is to simplify organizing and tracking events efficiently.
+
+---
 #### Tech stack
 - Django
 - python
