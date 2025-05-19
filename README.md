@@ -71,12 +71,18 @@ The goal is to simplify organizing and tracking events efficiently.
    
    2. Activate virtual environment:  
    pipenv shell
-   ```bash
+ 
    3. Install required packages:
    pipenv install djangorestframework-simplejwt
    pipenv install djangorestframework
    pipenv install django-cors-headers
-   
+
+   4. Apply migrations:
+   python manage.py migrate
+
+   5. Run the server:
+   python manage.py runserver
+   ```
 
 #### IceBox Features
 - Adding real-time notifications upon attendance registration.
